@@ -1,6 +1,17 @@
 .Card {
-    width: 200px;
+    width: 40vw;
     height: 200Px;
-    background-color: crimson;
+    margin-top: 50px;
+    margin-left: 50px;
+    background-color: cadetblue;
+    display: flex;
+}
 
+img {
+    margin: 10px;
+}
+
+p {
+    color:white;
+    margin: 10px;
 }

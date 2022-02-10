@@ -1,3 +1,20 @@
 .container {
-  display:flex
+  display: flex;
+  width: 75vw;
+  justify-content: space-around;
+  
+}
+
+.card-container {
+ align-items: center;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.card-controls {
+  margin-top: 10px;
+  width: 20vw;
+  display: flex;
+  justify-content: space-evenly;
 }
