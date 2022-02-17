@@ -2,14 +2,15 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 
-import { Deck } from './models/Deck.js'
+//import { Deck } from './models/Deck.js'
 
 const app = express()
 const port = 8000
 
 // Connect to MongoDB
 
-const connectionString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@crit-cluster.bpw1p.mongodb.net/notoriety?retryWrites=true&w=majority`
+const connectionString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.lwuuv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+
 try {
   await mongoose.connect(connectionString)
 } catch (err) {
@@ -17,6 +18,9 @@ try {
 }
 
 // Middleware
+// `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@crit-cluster.bpw1p.mongodb.net/notoriety?retryWrites=true&w=majority`
+// mongodb+srv://dipendra11:<password>@cluster0.lwuuv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
 
 const exampleMiddleware = (req, res, next) => {
   console.log('example middleware')
