@@ -2,14 +2,14 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 
-//import { Deck } from './models/Deck.js'
+import { Deck } from './models/Deck.js'
 
 const app = express()
 const port = 8000
 
 // Connect to MongoDB
 
-const connectionString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.lwuuv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+const connectionString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.9pszz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
 try {
   await mongoose.connect(connectionString)
@@ -38,10 +38,13 @@ app.get('/', (req, res) => {
 })
 
 app.get('/decks/:id/cards', async (req, res) => {
+  console.log ('request id',req.params.id)
   const limit = req.query.limit
+  console.log('query param limit ', limit)
   const deck = await Deck.findById(req.params.id)
-  if (deck) {
-    res.send(deck.cards.slice(0, 5))
+  if(deck){  
+  console.log('found num of cards ', deck.cards.length)
+  res.send(deck.cards.slice(0,5))
   } else {
     res.sendStatus(404)
   }
@@ -63,6 +66,20 @@ const isUrl = (value) => {
 
 app.post('/cards', async (req, res) => {
   const cardRequest = req.body
+  console.log('request body ', cardRequest)
+  if (cardRequest.deckID){
+    const deck = await Deck.findById(cardRequest.deckID)
+    if (deck){
+      deck.cards.push({
+        frontImage:cardRequest.frontImage,
+        frontText:cardRequest.frontText,
+        backImage:cardRequest.backImage,
+        backText: cardRequest.backText
+      })
+      deck.save()
+    }
+  }
+  res.sendStatus(503)
   
   if ((!cardRequest.frontImage && !cardRequest.frontText) || 
     (!cardRequest.backImage && !cardRequest.backText)) {
