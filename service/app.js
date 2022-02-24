@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 
 import { Deck } from './models/Deck.js'
+import { User } from './models/User.js'
 
 const app = express()
 const port = 8000

@@ -146,7 +146,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n          \"frontImage\":\"http://dummyimage.com/200x200.png/ff4444/ffffff\",\n          \"frontText\":\"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. I...\",\n          \"backImage\":\"http://dummyimage.com/200x200.png/cc0000/ffffff\",\n          \"backText\":\"Dipendra\"\n\n}",
+					"raw": "{\n          \"frontImage\":\"http://dummyimage.com/200x200.png/ff4444/ffffff\",\n          \"frontText\":\"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. I...\",\n          \"backImage\":\"http://dummyimage.com/200x200.png/cc0000/ffffff\",\n          \"backText\":\"edit backT\",\n          \"id\": \"621016e02b347c64e102cba9\"\n\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -154,21 +154,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/updatecard/:621016e02b347c64e102cba9",
+					"raw": "http://localhost:8000/decks/621016de2b347c64e102cb86",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"updatecard",
-						":621016e02b347c64e102cba9"
-					],
-					"variable": [
-						{
-							"key": "621016e02b347c64e102cba9",
-							"value": null
-						}
+						"decks",
+						"621016de2b347c64e102cb86"
 					]
 				}
 			},
@@ -267,6 +261,75 @@
 					"port": "8000",
 					"path": [
 						"createDeck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletecard",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/deletecard/:621016de2b347c64e102cb86/:621016e02b347c64e102cba9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"deletecard",
+						":621016de2b347c64e102cb86",
+						":621016e02b347c64e102cba9"
+					],
+					"variable": [
+						{
+							"key": "621016de2b347c64e102cb86",
+							"value": null
+						},
+						{
+							"key": "621016e02b347c64e102cba9",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteDeck",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost8000/deleteDeck/621016df2b347c64e102cb92",
+					"protocol": "https",
+					"host": [
+						"localhost8000"
+					],
+					"path": [
+						"deleteDeck",
+						"621016df2b347c64e102cb92"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost8000/deleteUser/621016df2b347c64e102cb94",
+					"protocol": "https",
+					"host": [
+						"localhost8000"
+					],
+					"path": [
+						"deleteUser",
+						"621016df2b347c64e102cb94"
 					]
 				}
 			},
