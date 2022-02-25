@@ -1,7 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
-
 import { Deck } from './models/Deck.js'
 import { User } from './models/User.js'
 
@@ -48,7 +47,6 @@ app.get('/decks/:id/cards', async (req, res) => {
     res.sendStatus(404)
   }
 })
-
 const cardsById = async (req, res) => {
   const card = await Deck.findOne({
     'cards._id': req.params.id
@@ -58,11 +56,17 @@ const cardsById = async (req, res) => {
 
 // get individual card by id
 app.get('/cards/:id', cardsById)
-
+const cardById = async (req, res) => {
+  const card = await Deck.findOne({
+    'cards._id': req.params.id
+  })
+  res.status(200).send(card)
+}
 const isUrl = (value) => {
   const re = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
   return re.test(value)
 }
+
 
 // get a deck by user
 app.get("/getDeckByUser/:id", async (req, res) => {
@@ -356,7 +360,6 @@ app.put("/updateUser/:id", async (req, res) => {
 
 // delete card
 app.delete('/deletecard/:deckId/:cardId', async (req, res) => {
-
   if (!req.params.deckId) {
     res.status(400).send('Deck ID is required')
   }
@@ -383,6 +386,7 @@ app.delete('/deletecard/:deckId/:cardId', async (req, res) => {
 
 // delete a Deck and all asscociated cards
 app.delete("/deleteDeck/:id", async (req, res) => {
+  console.log("delete deck")
   try {
     const deck = await Deck.findById(req.params.id)
     if(deck) {
@@ -420,8 +424,6 @@ app.delete("/deleteUser/:id", async (req, res) => {
     })
   }
 })
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`)
