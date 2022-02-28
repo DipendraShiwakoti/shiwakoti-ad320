@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "798ee7d0-aae9-4fc5-a1bb-0fcb84d0a30b",
+		"name": "Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8000/decks/621016de2b347c64e102cb86/cards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/getDeckByUser/621016de2b347c64e102cb86",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"getDeckByUser",
+						"621016de2b347c64e102cb86"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/decks/621016de2b347c64e102cb84/cards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/decks/621016de2b347c64e102cb86/cards?limit = 100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"decks",
+						"621016de2b347c64e102cb86",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "limit ",
+							"value": " 100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/cards",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fromtText\": \"stuff\",\n    \"frontInage\": \"things\",\n    \"backText\": \"some thing\",\n    \"deckId\": \"621016de2b347c64e102cb86\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/cards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/decks/621016de2b347c64e102cb84/cards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/decks/621016de2b347c64e102cb84/cards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"decks",
+						"621016de2b347c64e102cb84",
+						"cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/createUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"createUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update card",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n          \"frontImage\":\"http://dummyimage.com/200x200.png/ff4444/ffffff\",\n          \"frontText\":\"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. I...\",\n          \"backImage\":\"http://dummyimage.com/200x200.png/cc0000/ffffff\",\n          \"backText\":\"edit backT\",\n          \"id\": \"621016e02b347c64e102cba9\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/decks/621016de2b347c64e102cb86",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"decks",
+						"621016de2b347c64e102cb86"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateDeck",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"name\": \"Spanish practice\",\n   \"size\": \"18\", \n   \"userId\":\"621016de2b347c64e102cb85\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/updateDeck/:621016de2b347c64e102cb86",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"updateDeck",
+						":621016de2b347c64e102cb86"
+					],
+					"variable": [
+						{
+							"key": "621016de2b347c64e102cb86",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateUser",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userID\": \"34567982\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/updateUser/:621016de2b347c64e102cb85",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"updateUser",
+						":621016de2b347c64e102cb85"
+					],
+					"variable": [
+						{
+							"key": "621016de2b347c64e102cb85",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createDeck",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":\"621016de2b347c64e102cb86\",\n\"name\":\"Pro1\",\n\"size\":\"2\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/createDeck",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"createDeck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletecard",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/deletecard/:621016de2b347c64e102cb86/:621016e02b347c64e102cba9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"deletecard",
+						":621016de2b347c64e102cb86",
+						":621016e02b347c64e102cba9"
+					],
+					"variable": [
+						{
+							"key": "621016de2b347c64e102cb86",
+							"value": null
+						},
+						{
+							"key": "621016e02b347c64e102cba9",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteDeck",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost8000/deleteDeck/621016df2b347c64e102cb92",
+					"protocol": "https",
+					"host": [
+						"localhost8000"
+					],
+					"path": [
+						"deleteDeck",
+						"621016df2b347c64e102cb92"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost8000/deleteUser/621016df2b347c64e102cb94",
+					"protocol": "https",
+					"host": [
+						"localhost8000"
+					],
+					"path": [
+						"deleteUser",
+						"621016df2b347c64e102cb94"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
