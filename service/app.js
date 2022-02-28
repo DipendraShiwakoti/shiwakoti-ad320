@@ -36,12 +36,9 @@ app.get('/', (req, res) => {
 
 // get all cards for a deck, with the option to paginate results
 app.get('/decks/:id/cards', async (req, res) => {
-  console.log ('request id',req.params.id)
   const limit = req.query.limit
-  console.log('query param limit ', limit)
   const deck = await Deck.findById(req.params.id)
   if(deck){  
-  console.log('found num of cards ', deck.cards.length)
   res.send(deck.cards.slice(0,5))
   } else {
     res.sendStatus(404)
@@ -96,7 +93,6 @@ app.get("/getDeckByUser/:id", async (req, res) => {
 // create card
 app.post('/cards', async (req, res) => {
   const cardRequest = req.body
-  console.log('request body ', cardRequest)
   if (cardRequest.deckID){
     const deck = await Deck.findById(cardRequest.deckID)
     if (deck){
@@ -386,7 +382,6 @@ app.delete('/deletecard/:deckId/:cardId', async (req, res) => {
 
 // delete a Deck and all asscociated cards
 app.delete("/deleteDeck/:id", async (req, res) => {
-  console.log("delete deck")
   try {
     const deck = await Deck.findById(req.params.id)
     if(deck) {
@@ -405,7 +400,7 @@ app.delete("/deleteDeck/:id", async (req, res) => {
 })
 
 // delete user
-app.delete("/deleteUser/:id", async (req, res) => {
+app.delete("/user/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
     if(user) {
