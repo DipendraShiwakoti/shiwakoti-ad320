@@ -5,7 +5,20 @@ import axios from 'axios'
 const CreateFlashcard = ({ userId, deckId }) => {
   // how can we use state here to make sure we're validating info
   console.log(`[CreateFlashcard] deckId is ${deckId}`)
-  const [formValue, setFormValue] = useState({})
+  const [formValue, setFormValue] = useState({
+  frontImage: "",
+  frontText: "",
+  backImage: "",
+  backText: ""
+})
+const [err, setErrs] = useState({
+  'frontImage': false,
+  'frontText': false,
+  'backImage': false,
+  'backText': false
+
+})
+
 
   const handleChange = (event) => {
     event.preventDefault()
@@ -18,11 +31,18 @@ const CreateFlashcard = ({ userId, deckId }) => {
   const handleSubmit = async (event) => {
     console.log("[CreateFlashcard] onSubmit ", event)
     event.preventDefault()
+    const card = {
+      // frontImage,
+      // frontText,
+      // backImage,
+      // backText
+    }
     try {
       const response = await axios.post(`http://localhost:8000/decks/${deckId}/cards`, formValue, { headers: { user: userId } })
       console.log(`[createflashcard] response submit ${response.status}`)
     } catch (err) {
       console.log(`response error ${err.status}`)
+      //handle th
     }
   }
 
