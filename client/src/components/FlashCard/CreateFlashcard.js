@@ -10,7 +10,6 @@ const CreateFlashcard = ({ userId, deckId }) => {
   const[formErrors, setFormErrors] = useState({})
   const[isSubmit, setIsSubmit] = useState(false)
   
-
 const validate = (values) => {
   const errors = {}
   const re = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
@@ -35,8 +34,8 @@ if(!values.backText){
   errors.backText = "front Image is requred"
 }
 return errors;
-
 }
+
   const handleChange = (event) => {
     event.preventDefault()
     console.log("[CreateFlashcard] onChange ", event)
@@ -44,7 +43,7 @@ return errors;
    setFormValue({ ...formValue, [name]: value})
    console.log(formValue)
   }
-  
+
   const handleSubmit = async (event) => {
     console.log("[CreateFlashcard] onSubmit ", event)
     event.preventDefault()
