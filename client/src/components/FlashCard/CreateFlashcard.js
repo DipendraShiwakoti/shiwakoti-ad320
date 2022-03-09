@@ -38,8 +38,8 @@ const handleChange = (event) => {
     console.log("[CreateFlashcard] onSubmit ", event)
     event.preventDefault()
     if (formErrors.frontImage || formErrors.backImage || formErrors.frontText || formErrors.backText) {
-    } else {
       alert("invalid entries")
+    } else {
       try {
         const response = await axios.post(`http://localhost:8000/decks/${deckId}/cards`, formValue, { headers: { user: userId } })
         //<pre>{JSON.stringify(formValue, undefined, 2)} </pre>
@@ -64,7 +64,6 @@ const handleChange = (event) => {
         onChange={handleChange}
         autoFocus
         error={formErrors.frontImage}
-        //label = {formErrors.frontImage}
       />
       <TextField
         margin="normal"
