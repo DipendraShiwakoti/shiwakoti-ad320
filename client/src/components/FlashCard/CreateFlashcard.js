@@ -17,8 +17,9 @@ const validate = (name,value) => {
   if (name.includes("Image")) {
     if (!re.test(value) || !value) {
       setFormErrors({ ...formErrors,[name]: value})
+      console.error("wrong choice");
     } else {
-      return true
+      setFormValue({...formValue,[name]:value})
     }
   } else {
     return null
@@ -38,15 +39,14 @@ const handleChange = (event) => {
     console.log("[CreateFlashcard] onSubmit ", event)
     event.preventDefault()
     if (formErrors.frontImage || formErrors.backImage || formErrors.frontText || formErrors.backText) {
-      alert("invalid entries")
     } else {
       try {
         const response = await axios.post(`http://localhost:8000/decks/${deckId}/cards`, formValue, { headers: { user: userId } })
-        //<pre>{JSON.stringify(formValue, undefined, 2)} </pre>
         console.log(`[createflashcard] response submit ${response.status}`)
       } catch (err) {
         console.log(`response error ${err.status}`)
       }
+      alert('Error adding card')
     }
   }
 
