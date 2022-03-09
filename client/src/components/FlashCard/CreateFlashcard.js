@@ -17,7 +17,6 @@ const validate = (name,value) => {
   if (name.includes("Image")) {
     if (!re.test(value) || !value) {
       setFormErrors({ ...formErrors,[name]: value})
-      console.error("wrong choice");
     } else {
       setFormValue({...formValue,[name]:value})
     }
@@ -39,6 +38,7 @@ const handleChange = (event) => {
     console.log("[CreateFlashcard] onSubmit ", event)
     event.preventDefault()
     if (formErrors.frontImage || formErrors.backImage || formErrors.frontText || formErrors.backText) {
+      alert('Error adding card')
     } else {
       try {
         const response = await axios.post(`http://localhost:8000/decks/${deckId}/cards`, formValue, { headers: { user: userId } })
@@ -46,7 +46,7 @@ const handleChange = (event) => {
       } catch (err) {
         console.log(`response error ${err.status}`)
       }
-      alert('Error adding card')
+      
     }
   }
 
@@ -73,6 +73,8 @@ const handleChange = (event) => {
         label="Front Text"
         id="frontText"
         onChange={handleChange}
+        autoFocus
+        error ={formErrors.frontText}
       />
       <TextField
         margin="normal"
@@ -82,6 +84,8 @@ const handleChange = (event) => {
         label="Back Image"
         name="backImage"
         onChange={handleChange}
+        autoFocus
+        error = {formErrors.backImage}
       />
       <TextField
         margin="normal"
@@ -91,6 +95,8 @@ const handleChange = (event) => {
         label="Back Text"
         id="backText"
         onChange={handleChange}
+        autoFocus
+        error ={formErrors.backText}
       />
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         Submit
