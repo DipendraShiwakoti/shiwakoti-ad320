@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { validationResult } from 'express-validator'
+import { body, validationResult } from 'express-validator'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { User } from '../models/User.js'
@@ -14,7 +14,7 @@ const register = async (req, res) => {
   }
 
   try {
-    const existingUser = await User.findOne({ email: req.body.email })
+    const existingUser = await User.findOne({ email: req.body.email.toString().toLowercase() })
     console.log(`Existing user ${existingUser}`)
     if (existingUser) {
       res.status(400).send('That email is already registered')
@@ -43,7 +43,7 @@ async function login(req, res) {
   const creds = req.body
 
   try {
-    const existingUser = await User.findOne({ email: creds.email })
+    const existingUser = await User.findOne({ email: creds.email.toLowercase() })
 
     if (!existingUser) {
       res.status(404).send('No user found')
@@ -55,6 +55,7 @@ async function login(req, res) {
         const payload = {
           user: existingUser._id,
           otherData: 'for-example'
+          // moreData: Date.now()
         }
         const token = await jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 86400 })
         res.status(200).send({
@@ -70,7 +71,8 @@ async function login(req, res) {
 }
 
 authRouter.post('/login', login)
-authRouter.post('/register', register)
+// authRouter.post('/register', register)
+authRouter.post('/register', body('email').isEmail(), body('password').notEmpty(), register)
 
 export default authRouter
 
