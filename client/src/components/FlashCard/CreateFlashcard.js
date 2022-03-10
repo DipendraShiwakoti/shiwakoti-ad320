@@ -46,7 +46,6 @@ const handleChange = (event) => {
       } catch (err) {
         console.log(`response error ${err.status}`)
       }
-      
     }
   }
 
