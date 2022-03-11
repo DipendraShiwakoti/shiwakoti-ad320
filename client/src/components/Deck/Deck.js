@@ -31,6 +31,8 @@ const Deck = ({ deck }) => {
     }
   }
 
+  console.log("[Flashcard Provider] length of cards ", deck.cards.length)
+
   if (deck.cards.length < 1) {
     return <span>Add a card!</span>
   } else if (index >= deck.cards.length) {
