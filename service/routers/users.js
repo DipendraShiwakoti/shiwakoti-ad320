@@ -26,8 +26,13 @@ const getUsers = async (req, res) => {
 }
 
 const getUsersById = async (req, res) => {
-  const user = await User.findById(req.params.id)
-  res.send(user)
+  try {
+    const user = await User.findById(req.parms.id)
+    res.send(sanitizerUsers(user))
+  } catch (err) {
+    console.log(`Error getting usiser by id: ${err}`)
+    res.sendStatus(500)
+  }
 }
 
 const updateUser = async (req, res) => {
