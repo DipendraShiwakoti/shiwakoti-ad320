@@ -9,6 +9,7 @@ const getDecks = async (req, res) => {
   console.log(`Other data from the token ${other}`)
   try {
     const user = await User.findById(userId)
+    console.log(user)
     if (user) {
       res.send(user.decks)
     } else {

@@ -14,7 +14,7 @@ const register = async (req, res) => {
   }
 
   try {
-    const existingUser = await User.findOne({ email: req.body.email.toString().toLowercase() })
+    const existingUser = await User.findOne({ email: req.body.email.toString() })
     console.log(`Existing user ${existingUser}`)
     if (existingUser) {
       res.status(400).send('That email is already registered')
@@ -43,7 +43,7 @@ async function login(req, res) {
   const creds = req.body
 
   try {
-    const existingUser = await User.findOne({ email: creds.email.toLowercase() })
+    const existingUser = await User.findOne({ email: creds.email })
 
     if (!existingUser) {
       res.status(404).send('No user found')
@@ -77,6 +77,10 @@ authRouter.post('/register', body('email').isEmail(), body('password').notEmpty(
 export default authRouter
 
 export const verifyToken = async (req, res, next) => {
+  if (!req.headers.authorization) {
+    res.status(400).send('authentication information not provided')
+  }
+
   const authParts = req.headers.authorization.split(' ')
   if (authParts[0] !== 'Bearer' || authParts.length < 2) {
     res.status(400).send('Bad authentication token')

@@ -3,6 +3,7 @@ import { User } from '../models/User.js'
 
 const usersRouter = Router()
 function sanitizerUsers(users) {
+  console.log(users)
   const sanitizedUsers = users.map((user) => ({
     id: user.id,
     firstName: user.firstName,
@@ -26,9 +27,16 @@ const getUsers = async (req, res) => {
 }
 
 const getUsersById = async (req, res) => {
+  const requestor = await User.findById(userId)
+  const { userId } = req.user
+  if (requestor.role === 'admin' || requestor.role === 'superuser') {
+    const user = await User.findById(req.params.id)
+  } else if(requestor.role === 'user' && requestor.id === user.id){
+    res.send(sanitizerUsers(users))
+  } else{}
   try {
-    const user = await User.findById(req.parms.id)
-    res.send(sanitizerUsers(user))
+    const user = await User.findById(req.params.id)
+    res.send(sanitizerUsers([user]))
   } catch (err) {
     console.log(`Error getting usiser by id: ${err}`)
     res.sendStatus(500)
@@ -36,15 +44,23 @@ const getUsersById = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const result = await User.findByIdAndUpdate(req.params.id, req.body)
-  console.log('result ', result)
-  res.sendStatus(503)
+  if (req.user.role === 'admin' || req.user.userId === req.parms.id) {
+    const result = await User.findByIdAndUpdate(req.params.id, req.body)
+    console.log('result', result)
+    res.sendStatus(503)
+  } else {
+    res.status(404).send('cant update the user')
+  }
 }
 
 const deleteUser = async (req, res) => {
-  const result = await User.findByIdAndUpdate(req.params.id, { active: false })
-  console.log('result ', result)
-  res.sendStatus(503)
+  if (req.role === 'admin' || req.user.userId === req.params.id) {
+    const result = await User.findByIdAndUpdate(req.params.id, { active: false })
+    console.log('result ', result)
+    res.sendStatus(503)
+  } else {
+    res.sendStatus(404).send('unable to delete user')
+  }
 }
 
 usersRouter.get('/', getUsers)
