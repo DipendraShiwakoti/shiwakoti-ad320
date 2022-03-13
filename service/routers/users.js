@@ -27,34 +27,32 @@ const getUsers = async (req, res) => {
 }
 
 const getUsersById = async (req, res) => {
-  const requestor = await User.findById(userId)
   const { userId } = req.user
-  if (requestor.role === 'admin' || requestor.role === 'superuser') {
-    const user = await User.findById(req.params.id)
-  } else if(requestor.role === 'user' && requestor.id === user.id){
-    res.send(sanitizerUsers(users))
-  } else{}
-  try {
-    const user = await User.findById(req.params.id)
-    res.send(sanitizerUsers([user]))
-  } catch (err) {
-    console.log(`Error getting usiser by id: ${err}`)
-    res.sendStatus(500)
+  const requestor = await User.findById(userId)
+  if (requestor.role === 'admin' || req.user.role === 'superUser' || requestor._id.toString() === req.params.id.toString()) {
+    const users = await User.findById(req.params.id)
+    res.send(users)
+  } else {
+    res.status(404).send('This route is only for admin and superuser')
   }
 }
 
 const updateUser = async (req, res) => {
-  if (req.user.role === 'admin' || req.user.userId === req.parms.id) {
+  const { userId } = req.user
+  const requestor = await User.findById(userId)
+  if (requestor.role === 'admin' || req._id.toString() === req.params.id.toString()) {
     const result = await User.findByIdAndUpdate(req.params.id, req.body)
     console.log('result', result)
     res.sendStatus(503)
   } else {
-    res.status(404).send('cant update the user')
+    res.status(404).send('You are not authorized to update this info')
   }
 }
 
 const deleteUser = async (req, res) => {
-  if (req.role === 'admin' || req.user.userId === req.params.id) {
+  const { userId } = req.user
+  const requestor = await User.findById(userId)
+  if (requestor.role === 'admin' || requestor._Id.toString === req.params.id.toString) {
     const result = await User.findByIdAndUpdate(req.params.id, { active: false })
     console.log('result ', result)
     res.sendStatus(503)

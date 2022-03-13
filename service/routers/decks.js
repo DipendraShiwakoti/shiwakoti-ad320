@@ -58,15 +58,20 @@ const createCard = async (req, res) => {
 const deleteDeck = async (req, res) => {
   const userId = ''
   const deckId = req.params.id
-  try {
-    const user = await User.findById(userId)
-    const removedDeck = user.decks.id(deckId).remove()
-    console.log(removedDeck)
-    user.save()
-    res.sendStatus(204)
-  } catch (err) {
-    console.log(`${deleteDeck.name}: ${err}`)
-    res.sendStatus(500)
+  const requestor = await User.findById(userId)
+  if (requestor.role === 'admin' || requestor._id.toString() === req.params.id.toString()) {
+    try {
+      const user = await User.findById(userId)
+      const removedDeck = user.decks.id(deckId).remove()
+      console.log(removedDeck)
+      user.save()
+      res.sendStatus(204)
+    } catch (err) {
+      console.log(`${deleteDeck.name}: ${err}`)
+      res.sendStatus(500)
+    }
+  } else {
+    res.sendStatus(403).send('forbidden')
   }
 }
 
@@ -74,15 +79,20 @@ const updateDeck = async (req, res) => {
   const userId = ''
   const deckId = req.params.id
   const newDeck = req.body
-  try {
-    const user = await User.findById(userId)
-    const deck = user.decks.id(deckId)
-    deck.name = newDeck.name
-    await user.save()
-    res.sendStatus(204)
-  } catch (err) {
-    console.log(`${updateDeck.name}: ${err}`)
-    res.sendStatus(500)
+  const requestor = await User.findById(userId)
+  if (requestor.role === 'admin' || requestor._id.toString() === req.params.id.toStirng()) {
+    try {
+      const user = await User.findById(userId)
+      const deck = user.decks.id(deckId)
+      deck.name = newDeck.name
+      await user.save()
+      res.sendStatus(204)
+    } catch (err) {
+      console.log(`${updateDeck.name}: ${err}`)
+      res.sendStatus(500)
+    }
+  } else {
+    res.sendStatus(403).send('only admin can update a card')
   }
 }
 
