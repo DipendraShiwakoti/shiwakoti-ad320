@@ -57,7 +57,7 @@ async function login(req, res) {
           otherData: 'for-example'
           // moreData: Date.now()
         }
-        const token = await jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 86400 })
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 86400 })
         res.status(200).send({
           expiresIn: 86400,
           token: `Bearer ${token}`

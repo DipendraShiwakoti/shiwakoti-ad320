@@ -56,12 +56,12 @@ const createCard = async (req, res) => {
 }
 
 const deleteDeck = async (req, res) => {
-  const userId = ''
+  const { userId } = req.user
   const deckId = req.params.id
   const requestor = await User.findById(userId)
-  if (requestor.role === 'admin' || requestor._id.toString() === req.params.id.toString()) {
+  if (requestor.role === 'admin' || requestor._id.toStirng() === req.params.id.toStirng) {
     try {
-      const user = await User.findById(userId)
+      const user = await User.find({ 'decks._id': req.params.id })
       const removedDeck = user.decks.id(deckId).remove()
       console.log(removedDeck)
       user.save()
@@ -76,13 +76,13 @@ const deleteDeck = async (req, res) => {
 }
 
 const updateDeck = async (req, res) => {
-  const userId = ''
+  const { userId } = req.user
   const deckId = req.params.id
   const newDeck = req.body
   const requestor = await User.findById(userId)
   if (requestor.role === 'admin' || requestor._id.toString() === req.params.id.toStirng()) {
     try {
-      const user = await User.findById(userId)
+      const user = await User.find({ 'decks._id': req.params.id })
       const deck = user.decks.id(deckId)
       deck.name = newDeck.name
       await user.save()
