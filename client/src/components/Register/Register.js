@@ -1,14 +1,22 @@
-import React from 'react'
-import { Button, Box, TextField, Typography } from '@mui/material'
+import React from "react"
+import { Button, Box, TextField, Typography } from "@mui/material"
+import { useAuth } from "../Auth/AuthProvider"
+import { useNavigate } from "react-router-dom"
 
 const Register = () => {
   // Assignment: use the useAuth hook here to handle registering a new user
+  const { register } = useAuth()
+  const navigate = useNavigate()
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: data.get("email"),
+      password: data.get("password"),
+    })
+    register(data.get("email"), data.get("password"), () => {
+      navigate("/login")
     })
   }
 
@@ -16,9 +24,9 @@ const Register = () => {
     <Box
       sx={{
         marginTop: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <Typography component="h1" variant="h5">

@@ -1,7 +1,7 @@
-import React from 'react'
-import { Button, Box, TextField, Typography } from '@mui/material'
-import { useAuth } from '../Auth/AuthProvider'
-import { Navigate, useNavigate, useLocation } from 'react-router-dom'
+import React from "react"
+import { Button, Box, TextField, Typography } from "@mui/material"
+import { useAuth } from "../Auth/AuthProvider"
+import { Navigate, useNavigate, useLocation } from "react-router-dom"
 
 const Login = () => {
   const { auth, login } = useAuth()
@@ -11,15 +11,15 @@ const Login = () => {
   // Assignment: redirect the newly logged in user to the page they were on
   // OR to the User component
 
-  const source = location.state?.from?.pathname || "/app"
-
+  const source = location.state?.from?.pathname || "/user"
+  console.log(source)
   const handleSubmit = (event) => {
     event.preventDefault()
     // we've used state to handle form data on submit, but if we don't really
     // care about validation or more complex persistence, we can rely on
     // the event data itself and an object in React called FormData
     const data = new FormData(event.currentTarget)
-    login(data.get('email'), data.get('password'), () => {
+    login(data.get("email"), data.get("password"), () => {
       navigate(source, { replace: true })
     })
   }
@@ -32,9 +32,9 @@ const Login = () => {
     <Box
       sx={{
         marginTop: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <Typography component="h1" variant="h5">
