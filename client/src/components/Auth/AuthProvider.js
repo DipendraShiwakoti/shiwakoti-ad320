@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
       console.log(`Login error ${err}`)
       // Assignment: what should we do if this fails?
       //navigate back to login page
-      alert("password or email input error")
+      alert("login input error")
       navigate("/login")
     }
   }

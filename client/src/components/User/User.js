@@ -6,6 +6,8 @@ import { MenuItem, Container } from "@mui/material"
 const User = ({firstName, lastName}) => {
   const { auth } = useAuth()
   const [decks, setDecks] = useState(null)
+  const [user, setUser] = useState(null)
+  
   useEffect(() => {
     if (auth) {
       axios
@@ -13,13 +15,15 @@ const User = ({firstName, lastName}) => {
           headers: { authorization: `Bearer ${auth.token}` },
         })
         .then((response) => {
-          const userDecks = response.decks.map((deck) => {
+          console.log(response)
+          const userDecks = response.data.decks.map((deck) => {
             return{
               id: deck._id,
               name:deck.name,
             }
           })
           setDecks(userDecks)
+          setUser(response.data)
         })
     }
   }, [auth])
@@ -32,10 +36,13 @@ const User = ({firstName, lastName}) => {
     <React.Fragment>
       <Container width="lg" align="center">
         <div>
-          {auth.firstName} {auth.lastName}
+          {user?.firstName} {user?.lastName}
         </div>
-          <MenuItem>{decks?.map((deck) => deck.id)}
+        {decks.map((deck) =>
+          <MenuItem key = {deck.id} value = {deck.id}>
+          {deck.name}
           </MenuItem> 
+        )}
       </Container>
     </React.Fragment>
   )

@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React from "react"
 import { Button, Box, TextField, Typography } from "@mui/material"
 import { useAuth } from "../Auth/AuthProvider"
 import { Navigate, useNavigate, useLocation } from "react-router-dom"
@@ -7,7 +7,6 @@ const Login = () => {
   const { auth, login } = useAuth()
   const navigate = useNavigate()
   let location = useLocation()
-  let [err, setErr] = useState(null)
 
 
   // Assignment: redirect the newly logged in user to the page they were on
@@ -22,12 +21,8 @@ const Login = () => {
     // the event data itself and an object in React called FormData
     const data = new FormData(event.currentTarget)
     login(data.get("email"), data.get("password"), () => {
-      if (err) {
-        setErr(err)
-      } else{
         navigate(source, { replace:true})
-      }
-    })
+      })
   }
 
   if (auth) {
