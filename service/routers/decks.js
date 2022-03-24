@@ -1,12 +1,12 @@
 import { Router } from 'express'
 import { body } from 'express-validator'
 import { User } from '../models/User.js'
+import { validator } from '../middlewares/validation.js'
 
 const decksRouter = Router()
 
 const getDecks = async (req, res) => {
-  const { userId, other } = req.user
-  console.log(`Other data from the token ${other}`)
+  const { userId } = req.user
   try {
     const user = await User.findById(userId)
     if (user) {
@@ -86,10 +86,11 @@ const updateDeck = async (req, res) => {
 }
 
 decksRouter.get('/', getDecks)
-decksRouter.post('/', body('name').not().isEmpty(), createDeck)
+decksRouter.post('/', body('name').not().isEmpty(), validator, createDeck)
 decksRouter.put(
   '/:id',
   body('name').not().isEmpty(),
+  validator,
   updateDeck
 )
 decksRouter.delete('/:id', deleteDeck)
@@ -100,6 +101,7 @@ decksRouter.post(
   body('frontText').not().isEmpty(),
   body('backImage').isURL(),
   body('backText').not().isEmpty(),
+  validator,
   createCard
 )
 
